@@ -34,11 +34,12 @@
 
 - The Program function (The main entry point of the Parser class) will be of its own type - the "Program" - which will contain the "body".
 - Support strings.
-- Finite state machine
 
 ##### Tokenizer module (Lexical analysis)
 
 - the purpose of the tokenizer is exactly to extract stream of tokens of different types.
+- Finite state machine
+  - Implement the manual state machine, right we're entering some state: either the NUMBER state and then spin in the loop for the numbers, or we enter the STRING state and spin in the loop for the strings.
 
 <h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v1">Version 1<a>
