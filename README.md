@@ -2,7 +2,6 @@
 
 > Build a Recursive-descent parser for a full programming similar to JavaScript.
 
-
 - Tokenizer module: regular expressions
 - Parsing module
 - AST - Abstract Syntax Trees
@@ -26,8 +25,6 @@
 - Property access
 - Function calls
 
-
-
 # Version Log
 
 <h3>
@@ -39,4 +36,3 @@ Accept a string and return an AST.
 Support only numbers.
 
 Support only a single number.
-
