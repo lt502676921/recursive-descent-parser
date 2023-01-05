@@ -30,6 +30,7 @@
 <h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v2">Version 2<a>
 </h3>
+
 ##### Parser module (Syntactic analysis)
 
 - The Program function (The main entry point of the Parser class) will be of its own type - the "Program" - which will contain the "body".
@@ -44,6 +45,7 @@
 <h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v1">Version 1<a>
 </h3>
+
 ##### Parser module (Syntactic analysis)
 
 - Accept a string and return an AST (Abstract Syntax Tree).
