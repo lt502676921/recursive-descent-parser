@@ -49,5 +49,4 @@
 #### Parser module (Syntactic analysis)
 
 - Accept a string and return an AST (Abstract Syntax Tree).
-- Support only numbers.
-- Support only a single number.
+- Support only numbers (only a single number).
