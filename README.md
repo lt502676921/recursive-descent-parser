@@ -28,6 +28,18 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v3">Version 3<a>
+</h3>
+
+#### Tokenizer module (Lexical analysis)
+
+- Tokenizers as Finite state machines
+- Refactor the Tokenizer, make it based on the Regular Expressions
+- Tokenizer spec: **Regular Expressions notation**
+- Generic getNextToken
+- Skip token: Whitespace, Single-line and Multi-line comments
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v2">Version 2<a>
 </h3>
 

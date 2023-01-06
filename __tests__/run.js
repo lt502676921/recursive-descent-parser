@@ -5,7 +5,15 @@ const { Parser } = require('../src/Parser')
 
 const parser = new Parser()
 
-const program = `"hello"`
+const program = `
+  /**
+   * document example:
+   */
+  "hello"
+
+  // Number:
+  34
+`
 
 const ast = parser.parse(program)
 
