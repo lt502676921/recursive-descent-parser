@@ -36,21 +36,114 @@ class Parser {
    * Main entry point.
    *
    * Program
-   *  : Literal
-   *  ;
+   *   : Literal
+   *   ;
    */
   Program() {
     return {
       type: 'Program',
-      body: this.Literal(),
+      body: this.StatementList(),
     }
   }
 
   /**
+   * StatementList
+   *   : Statement
+   *   | StatementList Statement -> Statement Statement Statement Statement
+   *   ;
+   */
+  StatementList(stoplookahead = null) {
+    const statementList = [this.Statement()]
+
+    while (this._lookahead != null && this._lookahead.type != stoplookahead) {
+      statementList.push(this.Statement())
+    }
+    return statementList
+  }
+
+  /**
+   * Statement
+   *   : ExpressionStatement
+   *   | BlockStatement
+   *   | EmptyStatement
+   *   | VariableStatement
+   *   | IfStatement
+   *   | IterationStatement
+   *   | BreakStatement
+   *   | ContinueStatement
+   *   | FunctionDeclaration
+   *   | ReturnStatement
+   *   | ClassDeclaration
+   *   ;
+   */
+  Statement() {
+    switch (this._lookahead.type) {
+      case ';':
+        return this.EmptyStatement()
+      case '{':
+        return this.BlockStatement()
+      default:
+        return this.ExpressionStatement()
+    }
+  }
+
+  /**
+   * EmptyStatement
+   *   : ;
+   *   ;
+   */
+  EmptyStatement() {
+    this._eat(';')
+    return {
+      type: 'EmptyStatement',
+    }
+  }
+
+  /**
+   * BlockStatement
+   *   : '{' OptStatementList '}'
+   *   ;
+   */
+  BlockStatement() {
+    this._eat('{')
+
+    const body = this._lookahead.type !== '}' ? this.StatementList('}') : []
+    this._eat('}')
+    return {
+      type: 'BlockStatement',
+      body,
+    }
+  }
+
+  /**
+   * ExpressionStatement
+   *   : Expression ';'
+   *   ;
+   */
+  ExpressionStatement() {
+    const expression = this.Expression()
+    // Every expression must end with ';'
+    this._eat(';')
+    return {
+      type: 'ExpressionStatement',
+      expression,
+    }
+  }
+
+  /**
+   * Expression
+   *   : Literal
+   *   ;
+   */
+  Expression() {
+    return this.Literal()
+  }
+
+  /**
    * Literal
-   *  : NumericLiteral
-   *  | StringLiteral
-   *  ;
+   *   : NumericLiteral
+   *   | StringLiteral
+   *   ;
    */
   Literal() {
     switch (this._lookahead.type) {
@@ -64,8 +157,8 @@ class Parser {
 
   /**
    * StringLiteral
-   *  : STRING
-   *  ;
+   *   : STRING
+   *   ;
    */
   StringLiteral() {
     const token = this._eat('STRING')
@@ -77,8 +170,8 @@ class Parser {
 
   /**
    * NumericLiteral
-   *  : NUMBER
-   *  ;
+   *   : NUMBER
+   *   ;
    */
   NumericLiteral() {
     const token = this._eat('NUMBER')

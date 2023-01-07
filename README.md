@@ -28,16 +28,37 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v4">Version 4<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+Begin to consider about the Program structures
+
+- Support for handling multiple expressions or multiple statements
+- Semicolon separate expressions, every expression will be ExpressionStatement
+- Statements and Statement list
+- Blocks
+- Left-recursion
+- Recursion-to-loop conversion to handle left-recursive grammars
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v3">Version 3<a>
 </h3>
 
 #### Tokenizer module (Lexical analysis)
+
+> Specification-based tokenizer
 
 - Tokenizers as Finite state machines
 - Refactor the Tokenizer, make it based on the Regular Expressions
 - Tokenizer spec: **Regular Expressions notation**
 - Generic getNextToken
 - Skip token: Whitespace, Single-line and Multi-line comments
+
+#### Parser module (Syntactic analysis)
+
+- Handle the single expression: its's either number or a string
 
 <h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v2">Version 2<a>

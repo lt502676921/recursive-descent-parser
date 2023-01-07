@@ -9,10 +9,14 @@ const program = `
   /**
    * document example:
    */
-  "hello"
+  "hello";;
 
   // Number:
-  34
+  34;
+
+  {
+    34;
+  }
 `
 
 const ast = parser.parse(program)
