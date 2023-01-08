@@ -14,6 +14,8 @@
 - Blocks
 - Group expression
 
+
+
 - Binary operators
 - Logical operators
 - Branches: if-else-expression
@@ -28,6 +30,26 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v5">Version 5<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+- Binary expressions
+- Additive expression
+- Multiplicative expression
+- Primary expression
+- Operator precedence
+- Parenthesized expression
+
+#### Tokenizer module (Lexical analysis)
+
+Regular Expressions
+
+- Support more Symbols and Delimiters
+- Support Math operators
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v4">Version 4<a>
 </h3>
 
@@ -38,9 +60,17 @@ Begin to consider about the Program structures
 - Support for handling multiple expressions or multiple statements
 - Semicolon separate expressions, every expression will be ExpressionStatement
 - Statements and Statement list
-- Blocks
+- Block statement
+- Empty statement
+- Nested scopes
 - Left-recursion
 - Recursion-to-loop conversion to handle left-recursive grammars
+
+#### Tokenizer module (Lexical analysis)
+
+Regular Expressions
+
+- Support more Symbols and Delimiters
 
 <h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v3">Version 3<a>
