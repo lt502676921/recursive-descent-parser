@@ -47,7 +47,7 @@
 Regular Expressions
 
 - Support more Symbols and Delimiters
-- Support Math operators
+- Support Math operators: +, -, *, /
 
 <h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v4">Version 4<a>
