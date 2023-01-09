@@ -2,45 +2,55 @@
  * Main test runner.
  */
 const { Parser } = require('../src/Parser')
+const assert = require('assert')
+
+/**
+ * List of tests.
+ */
+const tests = [
+  require('./literals-test.js'),
+  require('./statement-list-test.js'),
+  require('./block-test.js'),
+  require('./empty-statement-test.js'),
+  require('./math-test.js'),
+]
 
 const parser = new Parser()
 
-let program = `
-  /**
-   * document example:
-   */
-  "hello";;
+/**
+ * For manual tests.
+ */
+function exec() {
+  let program = `
+    class Point {
+      def constructor(x, y) {
+        this.x = x;
+        this.y = y;
+      }
 
-  // Number:
-  34;
-
-  {
-    34;
-  }
-
-  32+34*2;
-
-  (2+3)*2;
-
-  3+(8+2);
-
-  4+5-6;
-`
-
-program = `
-  {
-    3 + (8 + 2);
-
-    {
-      1 + 2;
+      def calc() {
+        return this.x + this.y;
+      }
     }
-  }
-`
+  `
 
-program = `
-  (2 + 3) * 4;
-`
+  const ast = parser.parse(program)
 
-const ast = parser.parse(program)
+  console.log(JSON.stringify(ast, null, 2))
+}
 
-console.log(JSON.stringify(ast, null, 2))
+// Manual test:
+// exec()
+
+/**
+ * Test function.
+ */
+function test(program, expected) {
+  const ast = parser.parse(program)
+  assert.deepEqual(ast, expected)
+}
+
+// Run all tests
+tests.forEach(testRun => testRun(test))
+
+console.log('All assertions passed!')
