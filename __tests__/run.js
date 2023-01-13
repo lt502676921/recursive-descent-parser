@@ -1,8 +1,8 @@
 /**
  * Main test runner.
  */
-const { Parser } = require('../src/Parser')
-const assert = require('assert')
+const { Parser } = require('../src/Parser');
+const assert = require('assert');
 
 /**
  * List of tests.
@@ -13,9 +13,9 @@ const tests = [
   require('./block-test.js'),
   require('./empty-statement-test.js'),
   require('./math-test.js'),
-]
+];
 
-const parser = new Parser()
+const parser = new Parser();
 
 /**
  * For manual tests.
@@ -32,25 +32,25 @@ function exec() {
         return this.x + this.y;
       }
     }
-  `
+  `;
 
-  const ast = parser.parse(program)
+  const ast = parser.parse(program);
 
-  console.log(JSON.stringify(ast, null, 2))
+  console.log(JSON.stringify(ast, null, 2));
 }
 
 // Manual test:
-// exec()
+// exec();
 
 /**
  * Test function.
  */
 function test(program, expected) {
-  const ast = parser.parse(program)
-  assert.deepEqual(ast, expected)
+  const ast = parser.parse(program);
+  assert.deepEqual(ast, expected);
 }
 
 // Run all tests
-tests.forEach(testRun => testRun(test))
+tests.forEach(testRun => testRun(test));
 
-console.log('All assertions passed!')
+console.log('All assertions passed!');

@@ -11,7 +11,7 @@ module.exports = test => {
         },
       },
     ],
-  })
+  });
 
   // StringLiteral
   test(`"hello";`, {
@@ -25,7 +25,7 @@ module.exports = test => {
         },
       },
     ],
-  })
+  });
 
   // StringLiteral
 
@@ -40,5 +40,5 @@ module.exports = test => {
         },
       },
     ],
-  })
-}
+  });
+};

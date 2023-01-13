@@ -19,7 +19,7 @@ module.exports = test => {
         },
       },
     ],
-  })
+  });
 
   // Nested binary expressions:
   // left: 3 + 2
@@ -51,7 +51,7 @@ module.exports = test => {
         },
       },
     ],
-  })
+  });
 
   test(`2 * 2;`, {
     type: 'Program',
@@ -72,7 +72,7 @@ module.exports = test => {
         },
       },
     ],
-  })
+  });
 
   // Precedence of operations:
   test(`2 + 2 * 2;`, {
@@ -102,7 +102,7 @@ module.exports = test => {
         },
       },
     ],
-  })
+  });
 
   test(`2 * 2 * 2;`, {
     type: 'Program',
@@ -131,9 +131,9 @@ module.exports = test => {
         },
       },
     ],
-  })
+  });
 
-  // Precedence test
+  // Precedence of operations:
   test(`(2 + 2) * 2;`, {
     type: 'Program',
     body: [
@@ -161,5 +161,5 @@ module.exports = test => {
         },
       },
     ],
-  })
-}
+  });
+};
