@@ -32,6 +32,7 @@
 <h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v7">Version 7<a>
 </h3>
+
 #### Parser module (Syntactic analysis)
 
 - **Assignment Expression**
