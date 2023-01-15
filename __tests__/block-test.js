@@ -1,11 +1,14 @@
 module.exports = test => {
   test(
     `
+
     {
-        "hello";
-        42;
+      42;
+
+      "hello";
     }
-    `,
+
+  `,
     {
       type: 'Program',
       body: [
@@ -15,15 +18,16 @@ module.exports = test => {
             {
               type: 'ExpressionStatement',
               expression: {
-                type: 'StringLiteral',
-                value: 'hello',
+                type: 'NumericLiteral',
+                value: 42,
               },
             },
+
             {
               type: 'ExpressionStatement',
               expression: {
-                type: 'NumericLiteral',
-                value: 42,
+                type: 'StringLiteral',
+                value: 'hello',
               },
             },
           ],
@@ -32,17 +36,66 @@ module.exports = test => {
     }
   );
 
+  // Empty block:
+
   test(
     `
+
     {
+
     }
-    `,
+
+  `,
     {
       type: 'Program',
       body: [
         {
           type: 'BlockStatement',
           body: [],
+        },
+      ],
+    }
+  );
+
+  // Nested blocks:
+
+  test(
+    `
+
+    {
+      42;
+      {
+        "hello";
+      }
+    }
+
+  `,
+    {
+      type: 'Program',
+      body: [
+        {
+          type: 'BlockStatement',
+          body: [
+            {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'NumericLiteral',
+                value: 42,
+              },
+            },
+            {
+              type: 'BlockStatement',
+              body: [
+                {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'StringLiteral',
+                    value: 'hello',
+                  },
+                },
+              ],
+            },
+          ],
         },
       ],
     }

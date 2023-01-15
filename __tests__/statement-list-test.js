@@ -1,13 +1,11 @@
 module.exports = test => {
   test(
     `
-    // Strings
     "hello";
-    
-    
-    // Numbers
-    49;
-    `,
+
+    42;
+
+  `,
     {
       type: 'Program',
       body: [
@@ -22,7 +20,7 @@ module.exports = test => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            value: 49,
+            value: 42,
           },
         },
       ],

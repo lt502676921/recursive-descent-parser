@@ -30,6 +30,29 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v7">Version 7<a>
+</h3>
+#### Parser module (Syntactic analysis)
+
+- **Assignment Expression**
+  - Identifiers: variable names
+  - Chained assignment
+  - Left-hand side expression
+- **Variable Statement**
+  - Variable statement
+  - Keyword tokens
+  - Variable declarations
+  - Name and optional Initializer
+
+#### Tokenizer module (Lexical analysis)
+
+- **Regular Expressions**
+  - Support more Symbols and Delimiters
+  - Support Keywords: let
+  - Support Assignment operators: =
+  - Support Identifiers
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v6">Version 6<a>
 </h3>
 

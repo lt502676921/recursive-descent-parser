@@ -200,7 +200,7 @@ class Parser {
 
   /**
    * Expression
-   *   : Literal
+   *   : AssignmentExpression
    *   ;
    */
   Expression() {
@@ -214,7 +214,7 @@ class Parser {
    *   ;
    */
   AssignmentExpression() {
-    const left = this.LogicalORExpression();
+    const left = this.AdditiveExpression();
 
     if (!this._isAssignmentOperator(this._lookahead.type)) {
       return left;
@@ -259,86 +259,6 @@ class Parser {
   }
 
   /**
-   * Logical OR expression.
-   *
-   *   x || y
-   *
-   * LogicalORExpression
-   *   : LogicalORExpression
-   *   | LogicalORExpression LOGICAL_OR LogicalANDExpression
-   *   ;
-   */
-  LogicalORExpression() {
-    return this._LogicalExpression('LogicalANDExpression', 'LOGICAL_OR');
-  }
-
-  /**
-   * Logical AND expression.
-   *
-   *   x && y
-   *
-   * LogicalANDExpression
-   *   : EqualityExpression
-   *   | LogicalANDExpression LOGICAL_AND EqualityExpression
-   *   ;
-   */
-  LogicalANDExpression() {
-    return this._LogicalExpression('EqualityExpression', 'LOGICAL_AND');
-  }
-
-  /**
-   * Generic helper for LogicalExpression nodes.
-   */
-  _LogicalExpression(builderName, operatorToken) {
-    let left = this[builderName]();
-
-    while (this._lookahead.type === operatorToken) {
-      const operator = this._eat(operatorToken).value;
-      const right = this[builderName]();
-      left = {
-        type: '_LogicalExpression',
-        operator,
-        left,
-        right,
-      };
-    }
-
-    return left;
-  }
-
-  /**
-   * EQUALITY_OPERATOR: ==, !=
-   *
-   *   x == y
-   *   x != y
-   *
-   * EqualityExpression
-   *   : RelationalExpression
-   *   | EqualityExpression EQUALITY_OPERATOR RelationalExpression
-   *   ;
-   */
-  EqualityExpression() {
-    return this._BinaryExpression('RelationalExpression', 'EQUALITY_OPERATOR');
-  }
-
-  /**
-   * RELATIONAL_OPERATOR: >, >=, <, <=
-   *
-   *   x > y
-   *   x >= y
-   *   x < y
-   *   x <= y
-   *
-   * RelationalExpression
-   *   : AdditiveExpression
-   *   | RelationalExpression RELATIONAL_OPERATOR AdditiveExpression
-   *   ;
-   */
-  RelationalExpression() {
-    return this._BinaryExpression('AdditiveExpression', 'RELATIONAL_OPERATOR');
-  }
-
-  /**
    * Identifier
    *   : IDENTIFIER
    *   ;
@@ -368,7 +288,7 @@ class Parser {
    *   ;
    */
   MultiplicativeExpression() {
-    return this._BinaryExpression('UnaryExpression', 'MULTIPLICATIVE_OPERATOR');
+    return this._BinaryExpression('PrimaryExpression', 'MULTIPLICATIVE_OPERATOR');
   }
 
   /**
@@ -376,12 +296,9 @@ class Parser {
    */
   _BinaryExpression(builderName, operatorToken) {
     let left = this[builderName]();
-
     while (this._lookahead.type === operatorToken) {
       const operator = this._eat(operatorToken).value;
-
       const right = this[builderName]();
-
       left = {
         type: 'BinaryExpression',
         operator,
@@ -389,132 +306,7 @@ class Parser {
         right,
       };
     }
-
     return left;
-  }
-
-  /**
-   * UnaryExpression
-   *   : LeftHandSideExpression
-   *   | ADDITIVE_OPERATOR UnaryExpression
-   *   | LOGICAL_NOT UnaryExpression
-   *   ;
-   */
-  UnaryExpression() {
-    let operator;
-    switch (this._lookahead.type) {
-      case 'ADDITIVE_OPERATOR':
-        operator = this._eat('ADDITIVE_OPERATOR').value;
-        break;
-      case 'LOGICAL_NOT':
-        operator = this._eat('LOGICAL_NOT').value;
-        break;
-    }
-
-    if (operator) {
-      return {
-        type: 'UnaryExpression',
-        operator,
-        argument: this.UnaryExpression(),
-      };
-    }
-    return this.LeftHandSideExpression();
-  }
-
-  /**
-   * LeftHandSideExpression
-   *   : CallMemberExpression
-   *   ;
-   */
-  LeftHandSideExpression() {
-    return this.CallMemberExpression();
-  }
-
-  /**
-   * CallMemberExpression
-   *   : MemberExpression
-   *   | CallExpression
-   *   ;
-   */
-  CallMemberExpression() {
-    if (this._lookahead.type === 'super') {
-      return this._CallExpression(this.Super());
-    }
-
-    const member = this.MemberExpression();
-
-    if (this._lookahead.type === '(') {
-      return this._CallExpression(member);
-    }
-
-    return member;
-  }
-
-  /**
-   * Generic call expression helper.
-   *
-   * CallExpression
-   *   : Callee Arguments
-   *   ;
-   *
-   * Callee
-   *   : MemberExpression
-   *   | Super
-   *   | CallExpression
-   *   ;
-   */
-  _CallExpression(callee) {
-    let callExpression = {
-      type: 'CallExpression',
-      callee,
-      arguments: this.Arguments(),
-    };
-
-    if (this._lookahead.type === '(') {
-      callExpression = this._CallExpression(callExpression);
-    }
-
-    return callExpression;
-  }
-
-  /**
-   * MemberExpression
-   *   : PrimaryExpression
-   *   | MemberExpression '.' Identifier
-   *   | MemberExpression '[' Expression ']'
-   *   ;
-   */
-  MemberExpression() {
-    let object = this.PrimaryExpression();
-
-    while (this._lookahead.type === '.' || this._lookahead.type === '[') {
-      // MemberExpression '.' Identifier
-      if (this._lookahead.type === '.') {
-        this._eat('.');
-        const property = this.Identifier();
-        object = {
-          type: 'MemberExpression',
-          computed: false,
-          object,
-          property,
-        };
-      }
-
-      // MemberExpression '[' Expression ']'
-      if (this._lookahead.type === '[') {
-        this._eat('[');
-        const property = this.Expression();
-        this._eat(']');
-        object = {
-          type: 'MemberExpression',
-          computed: true,
-          object,
-          property,
-        };
-      }
-    }
-
-    return object;
   }
 
   /**
@@ -527,30 +319,14 @@ class Parser {
    *   ;
    */
   PrimaryExpression() {
-    if (this._isLiteral(this._lookahead.type)) {
-      return this.Literal();
-    }
     switch (this._lookahead.type) {
       case '(':
         return this.ParenthesizedExpression();
       case 'IDENTIFIER':
         return this.Identifier();
       default:
-        throw new SyntaxError('Unexpected primary expression.');
+        return this.Literal();
     }
-  }
-
-  /**
-   * Whether the token is a literal.
-   */
-  _isLiteral(tokenType) {
-    return (
-      tokenType === 'NUMBER' ||
-      tokenType === 'STRING' ||
-      tokenType === 'true' ||
-      tokenType === 'false' ||
-      tokenType === 'null'
-    );
   }
 
   /**

@@ -28,7 +28,6 @@ module.exports = test => {
   });
 
   // StringLiteral
-
   test(`'hello';`, {
     type: 'Program',
     body: [
