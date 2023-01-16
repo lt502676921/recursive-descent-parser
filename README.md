@@ -30,6 +30,23 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v8">Version 8<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+- Control flow
+- If-else statement
+- Consequent and Alternate parts
+- Relational expression
+
+#### Tokenizer module (Lexical analysis)
+
+- **Regular Expressions**
+  - Support Keywords: if, else
+  - Support Relational operators: >, >=, <, <=
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v7">Version 7<a>
 </h3>
 
