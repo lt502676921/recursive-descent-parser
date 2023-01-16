@@ -185,7 +185,7 @@ class Parser {
 
   /**
    * EmptyStatement
-   *   : ;
+   *   : ';'
    *   ;
    */
   EmptyStatement() {
@@ -327,26 +327,6 @@ class Parser {
   }
 
   /**
-   * Generic helper for LogicalExpression nodes.
-   */
-  _LogicalExpression(builderName, operatorToken) {
-    let left = this[builderName]();
-
-    while (this._lookahead.type === operatorToken) {
-      const operator = this._eat(operatorToken).value;
-      const right = this[builderName]();
-      left = {
-        type: 'LogicalExpression',
-        operator,
-        left,
-        right,
-      };
-    }
-
-    return left;
-  }
-
-  /**
    * EQUALITY_OPERATOR: ==, !=
    *
    *   x == y
@@ -396,6 +376,26 @@ class Parser {
    */
   MultiplicativeExpression() {
     return this._BinaryExpression('PrimaryExpression', 'MULTIPLICATIVE_OPERATOR');
+  }
+
+  /**
+   * Generic helper for LogicalExpression nodes.
+   */
+  _LogicalExpression(builderName, operatorToken) {
+    let left = this[builderName]();
+
+    while (this._lookahead.type === operatorToken) {
+      const operator = this._eat(operatorToken).value;
+      const right = this[builderName]();
+      left = {
+        type: 'LogicalExpression',
+        operator,
+        left,
+        right,
+      };
+    }
+
+    return left;
   }
 
   /**
@@ -468,6 +468,8 @@ class Parser {
    * Literal
    *   : NumericLiteral
    *   | StringLiteral
+   *   | BooleanLiteral
+   *   | NullLiteral
    *   ;
    */
   Literal() {
