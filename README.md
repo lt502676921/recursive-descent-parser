@@ -30,6 +30,25 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v9">Version 9<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+- Equality expression
+- Logical AND expression
+- Logical OR expression
+- Boolean literals
+- Null literal
+
+#### Tokenizer module (Lexical analysis)
+
+- **Regular Expressions**
+  - Support Keywords: true, false, null
+  - Support Equality operators: ==, !==
+  - Support Logical operators: &&, ||
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v8">Version 8<a>
 </h3>
 

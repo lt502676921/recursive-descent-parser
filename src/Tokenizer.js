@@ -29,6 +29,19 @@ const Spec = [
   [/^\blet\b/, 'let'],
   [/^\bif\b/, 'if'],
   [/^\belse\b/, 'else'],
+  [/^\btrue\b/, 'true'],
+  [/^\bfalse\b/, 'false'],
+  [/^\bnull\b/, 'null'],
+
+  // -----------------------------------------------
+  // Equality operators: ==, !==
+  [/^[=!]=/, 'EQUALITY_OPERATOR'],
+
+  // -----------------------------------------------
+  // Logical operators: &&, ||
+  [/^&&/, 'LOGICAL_AND'],
+  [/^\|\|/, 'LOGICAL_OR'],
+  [/^!/, 'LOGICAL_NOT'],
 
   // -----------------------------------------------
   // Assignment operators: =, *=, /=, +=, -=

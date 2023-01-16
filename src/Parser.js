@@ -241,7 +241,7 @@ class Parser {
    *   ;
    */
   AssignmentExpression() {
-    const left = this.RelationalExpression();
+    const left = this.LogicalORExpression();
 
     if (!this._isAssignmentOperator(this._lookahead.type)) {
       return left;
@@ -296,6 +296,69 @@ class Parser {
       return this._eat('SIMPLE_ASSIGN');
     }
     return this._eat('COMPLEX_ASSIGN');
+  }
+
+  /**
+   * Logical OR expression.
+   *
+   *   x || y
+   *
+   * LogicalORExpression
+   *   : LogicalORExpression
+   *   | LogicalORExpression LOGICAL_OR LogicalANDExpression
+   *   ;
+   */
+  LogicalORExpression() {
+    return this._LogicalExpression('LogicalANDExpression', 'LOGICAL_OR');
+  }
+
+  /**
+   * Logical AND expression.
+   *
+   *   x && y
+   *
+   * LogicalANDExpression
+   *   : EqualityExpression
+   *   | LogicalANDExpression LOGICAL_AND EqualityExpression
+   *   ;
+   */
+  LogicalANDExpression() {
+    return this._LogicalExpression('EqualityExpression', 'LOGICAL_AND');
+  }
+
+  /**
+   * Generic helper for LogicalExpression nodes.
+   */
+  _LogicalExpression(builderName, operatorToken) {
+    let left = this[builderName]();
+
+    while (this._lookahead.type === operatorToken) {
+      const operator = this._eat(operatorToken).value;
+      const right = this[builderName]();
+      left = {
+        type: 'LogicalExpression',
+        operator,
+        left,
+        right,
+      };
+    }
+
+    return left;
+  }
+
+  /**
+   * EQUALITY_OPERATOR: ==, !=
+   *
+   *   x == y
+   *   x != y
+   *
+   * EqualityExpression
+   *   : RelationalExpression
+   *   | EqualityExpression EQUALITY_OPERATOR RelationalExpression
+   *   ;
+   */
+  EqualityExpression() {
+    return this._BinaryExpression('RelationalExpression', 'EQUALITY_OPERATOR');
   }
 
   /**
@@ -363,14 +426,30 @@ class Parser {
    *   ;
    */
   PrimaryExpression() {
+    if (this._isLiteral(this._lookahead.type)) {
+      return this.Literal();
+    }
     switch (this._lookahead.type) {
       case '(':
         return this.ParenthesizedExpression();
       case 'IDENTIFIER':
         return this.Identifier();
       default:
-        return this.Literal();
+        throw new SyntaxError('Unexpected primary expression.');
     }
+  }
+
+  /**
+   * Whether the token is a literal.
+   */
+  _isLiteral(tokenType) {
+    return (
+      tokenType === 'NUMBER' ||
+      tokenType === 'STRING' ||
+      tokenType === 'true' ||
+      tokenType === 'false' ||
+      tokenType === 'null'
+    );
   }
 
   /**
@@ -397,8 +476,41 @@ class Parser {
         return this.NumericLiteral();
       case 'STRING':
         return this.StringLiteral();
+      case 'true':
+        return this.BooleanLiteral(true);
+      case 'false':
+        return this.BooleanLiteral(false);
+      case 'null':
+        return this.NullLiteral();
     }
     throw new SyntaxError(`Literal: unexpected literal production`);
+  }
+
+  /**
+   * BooleanLiteral
+   *   : 'true'
+   *   | 'false'
+   *   ;
+   */
+  BooleanLiteral(value) {
+    this._eat(value ? 'true' : 'false');
+    return {
+      type: 'BooleanLiteral',
+      value,
+    };
+  }
+
+  /**
+   * NullLiteral
+   *   : 'null'
+   *   ;
+   */
+  NullLiteral() {
+    this._eat('null');
+    return {
+      type: 'NullLiteral',
+      value: null,
+    };
   }
 
   /**
