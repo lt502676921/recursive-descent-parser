@@ -30,6 +30,22 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v10">Version 10<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+- Unary expression
+- Logical NOT operator
+- Minus operator
+- Single operand
+
+#### Tokenizer module (Lexical analysis)
+
+- **Regular Expressions**
+  - Support Logical operators: !
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v9">Version 9<a>
 </h3>
 

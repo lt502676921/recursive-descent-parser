@@ -19,6 +19,7 @@ const tests = [
   require('./relational-test.js'),
   require('./equality-test.js'),
   require('./logical-test.js'),
+  require('./unary-test'),
 ];
 
 const parser = new Parser();

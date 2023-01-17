@@ -375,7 +375,7 @@ class Parser {
    *   ;
    */
   MultiplicativeExpression() {
-    return this._BinaryExpression('PrimaryExpression', 'MULTIPLICATIVE_OPERATOR');
+    return this._BinaryExpression('UnaryExpression', 'MULTIPLICATIVE_OPERATOR');
   }
 
   /**
@@ -414,6 +414,43 @@ class Parser {
       };
     }
     return left;
+  }
+
+  /**
+   * UnaryExpression
+   *   : LeftHandSideExpression
+   *   | ADDITIVE_OPERATOR UnaryExpression
+   *   | LOGICAL_NOT UnaryExpression
+   *   ;
+   */
+  UnaryExpression() {
+    let operator;
+    switch (this._lookahead.type) {
+      case 'ADDITIVE_OPERATOR':
+        operator = this._eat('ADDITIVE_OPERATOR').value;
+        break;
+      case 'LOGICAL_NOT':
+        operator = this._eat('LOGICAL_NOT').value;
+        break;
+    }
+
+    if (operator) {
+      return {
+        type: 'UnaryExpression',
+        operator,
+        argument: this.UnaryExpression(),
+      };
+    }
+    return this.LeftHandSideExpression();
+  }
+
+  /**
+   * LeftHandSideExpression
+   *   : CallMemberExpression
+   *   ;
+   */
+  LeftHandSideExpression() {
+    return this.PrimaryExpression();
   }
 
   /**
