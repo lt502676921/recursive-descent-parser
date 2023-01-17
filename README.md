@@ -30,6 +30,25 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v11">Version 11<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+- Control flow
+- Iteration Statement
+- While loop
+- Do-while loop
+- For-cycle
+- Inline variable declaration
+
+#### Tokenizer module (Lexical analysis)
+
+- **Regular Expressions**
+  - Support Keywords: do, while, for
+  - Support Assignment operators: (\*=, /=, +=, -=)
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v10">Version 10<a>
 </h3>
 

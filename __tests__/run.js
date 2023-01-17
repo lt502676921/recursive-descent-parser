@@ -20,6 +20,9 @@ const tests = [
   require('./equality-test.js'),
   require('./logical-test.js'),
   require('./unary-test'),
+  require('./while-test.js'),
+  require('./do-while-test.js'),
+  require('./for-test.js'),
 ];
 
 const parser = new Parser();
@@ -57,7 +60,7 @@ function test(program, expected) {
   assert.deepEqual(ast, expected);
 }
 
-// Run all tests
+// Run all tests:
 tests.forEach(testRun => testRun(test));
 
 console.log('All assertions passed!');
