@@ -35,6 +35,8 @@ const Spec = [
   [/^\bwhile\b/, 'while'],
   [/^\bdo\b/, 'do'],
   [/^\bfor\b/, 'for'],
+  [/^\bdef\b/, 'def'],
+  [/^\breturn\b/, 'return'],
 
   // -----------------------------------------------
   // Equality operators: ==, !==

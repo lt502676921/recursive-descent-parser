@@ -23,6 +23,7 @@ const tests = [
   require('./while-test.js'),
   require('./do-while-test.js'),
   require('./for-test.js'),
+  require('./function-declaration-test.js'),
 ];
 
 const parser = new Parser();

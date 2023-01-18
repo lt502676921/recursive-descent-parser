@@ -30,6 +30,23 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v12">Version 12<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+- Function declaration
+- Return statement
+- Formal parameters
+- Function body
+- Optional return
+
+#### Tokenizer module (Lexical analysis)
+
+- **Regular Expressions**
+  - Support Keywords: def, return
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v11">Version 11<a>
 </h3>
 
