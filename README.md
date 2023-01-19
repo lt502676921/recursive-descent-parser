@@ -30,6 +30,24 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v13">Version 13<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+- Member Expression
+- Property access
+- Objects and Properties
+- Computed vs. Non-computed properties
+- Chained objects
+- Assigning to object properties
+
+#### Tokenizer module (Lexical analysis)
+
+- **Regular Expressions**
+  - Support Symbols and Delimiters:`.`, `[`, `]`
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v12">Version 12<a>
 </h3>
 
@@ -63,7 +81,7 @@
 
 - **Regular Expressions**
   - Support Keywords: do, while, for
-  - Support Assignment operators: (\*=, /=, +=, -=)
+  - Support Assignment operators: \*=, /=, +=, -=
 
 <h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v10">Version 10<a>

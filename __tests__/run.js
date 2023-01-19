@@ -19,11 +19,12 @@ const tests = [
   require('./relational-test.js'),
   require('./equality-test.js'),
   require('./logical-test.js'),
-  require('./unary-test'),
+  require('./unary-test.js'),
   require('./while-test.js'),
   require('./do-while-test.js'),
   require('./for-test.js'),
   require('./function-declaration-test.js'),
+  require('./member-test.js'),
 ];
 
 const parser = new Parser();
