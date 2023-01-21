@@ -30,6 +30,23 @@
 # Version Log
 
 <h3>
+	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v15">Version 15<a>
+</h3>
+
+#### Parser module (Syntactic analysis)
+
+- Object-oriented programming
+- Class declaration
+- New expression
+- Super calls
+- Methods
+
+#### Tokenizer module (Lexical analysis)
+
+- **Regular Expressions**
+  - Support Keywords: class, extends, super, this, new
+
+<h3>
 	<a href="https://github.com/lt502676921/recursive-descent-parser/tree/v14">Version 14<a>
 </h3>
 

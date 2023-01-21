@@ -86,6 +86,8 @@ class Parser {
         return this.VariableStatement();
       case 'def':
         return this.FunctionDeclaration();
+      case 'class':
+        return this.ClassDeclaration();
       case 'return':
         return this.ReturnStatement();
       case 'while':
@@ -95,6 +97,35 @@ class Parser {
       default:
         return this.ExpressionStatement();
     }
+  }
+
+  /**
+   * ClassDeclaration
+   *   : 'class' Identifier OptClassExtends BlockStatement
+   *   ;
+   */
+  ClassDeclaration() {
+    this._eat('class');
+    const id = this.Identifier();
+    const superClass = this._lookahead.type === 'extends' ? this.ClassExtends() : null;
+    const body = this.BlockStatement();
+
+    return {
+      type: 'ClassDeclaration',
+      id,
+      superClass,
+      body,
+    };
+  }
+
+  /**
+   * ClassExtends
+   *   : 'extends' Identifier
+   *   ;
+   */
+  ClassExtends() {
+    this._eat('extends');
+    return this.Identifier();
   }
 
   /**
@@ -646,6 +677,10 @@ class Parser {
    *   ;
    */
   CallMemberExpression() {
+    if (this._lookahead.type === 'super') {
+      return this._CallExpression(this.Super());
+    }
+
     const member = this.MemberExpression();
 
     if (this._lookahead.type === '(') {
@@ -766,9 +801,51 @@ class Parser {
         return this.ParenthesizedExpression();
       case 'IDENTIFIER':
         return this.Identifier();
+      case 'this':
+        return this.ThisExpression();
+      case 'new':
+        return this.NewExpression();
       default:
         throw new SyntaxError('Unexpected primary expression.');
     }
+  }
+
+  /**
+   * NewExpression
+   *   : 'new' MemberExpression Arguments
+   *   ;
+   */
+  NewExpression() {
+    this._eat('new');
+    return {
+      type: 'NewExpression',
+      callee: this.MemberExpression(),
+      arguments: this.Arguments(),
+    };
+  }
+
+  /**
+   * ThisExpression
+   *   : 'this'
+   *   ;
+   */
+  ThisExpression() {
+    this._eat('this');
+    return {
+      type: 'ThisExpression',
+    };
+  }
+
+  /**
+   * Super
+   *   : 'super'
+   *   ;
+   */
+  Super() {
+    this._eat('super');
+    return {
+      type: 'Super',
+    };
   }
 
   /**
