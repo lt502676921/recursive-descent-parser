@@ -35,7 +35,11 @@ const parser = new Parser();
  * For manual tests.
  */
 function exec() {
-  let program = `
+  const program = `
+
+    /**
+     * Class declaration.
+     */
     class Point {
       def constructor(x, y) {
         this.x = x;
@@ -46,7 +50,27 @@ function exec() {
         return this.x + this.y;
       }
     }
-  `;
+
+    /**
+     * Child class.
+     */
+    class Point3D extends Point {
+      def constructor(x, y, z) {
+        super(x, y);
+        this.z = z;
+      }
+
+      def calc() {
+        return super() + this.z;
+      }
+    }
+
+    // Instance:
+    let p = new Point3D(10, 20, 30);
+
+    p.calc();
+
+`;
 
   const ast = parser.parse(program);
 
