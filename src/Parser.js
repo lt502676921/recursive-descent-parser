@@ -50,10 +50,10 @@ class Parser {
    *   | StatementList Statement -> Statement Statement Statement Statement
    *   ;
    */
-  StatementList(stoplookahead = null) {
+  StatementList(stopLookahead = null) {
     const statementList = [this.Statement()];
 
-    while (this._lookahead != null && this._lookahead.type != stoplookahead) {
+    while (this._lookahead != null && this._lookahead.type != stopLookahead) {
       statementList.push(this.Statement());
     }
     return statementList;

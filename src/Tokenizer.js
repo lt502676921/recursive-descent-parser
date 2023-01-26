@@ -113,7 +113,7 @@ class Tokenizer {
   }
 
   /**
-   * Obtains next tokens.
+   * Obtains next token.
    */
   getNextToken() {
     if (!this.hasMoreTokens()) {
