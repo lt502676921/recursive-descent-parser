@@ -106,7 +106,7 @@ class Tokenizer {
   }
 
   /**
-   * Whether we still have more tokens
+   * Whether we still have more tokens.
    */
   hasMoreTokens() {
     return this._cursor < this._string.length;
